@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import Layout from './SuggestionListLayout';
 import EmptyList from './EmptyList';
-import Separator from './VerticalSeparator';
+import Separator from '../sections/VerticalSeparator';
 import Suggestion from './Suggestion';
 
 class SuggestionList extends Component {
