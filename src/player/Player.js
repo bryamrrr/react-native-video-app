@@ -5,12 +5,15 @@ import Layout from './PlayerLayout';
 import ControlLayout from './ControlLayout';
 import PlayPause from './PlayPause';
 import FullScreenButton from './FullScreenButton';
+import ProgressBar from './ProgressBar';
 
 class Player extends Component {
   state = {
     loading: true,
     paused: false,
     fullScreenOn: false,
+    progress: 0,
+    buffer: 0,
   }
 
   onBuffer = ({ isBuffering }) => {
@@ -19,6 +22,16 @@ class Player extends Component {
 
   onLoad = () => {
     this.setState({ loading: false });
+  }
+
+  onProgress = ({ seekableDuration, playableDuration, currentTime }) => {
+    const progress = currentTime / seekableDuration * 100;
+    const buffer = playableDuration / seekableDuration * 100;
+
+    this.setState({
+      progress,
+      buffer,
+    })
   }
 
   playPause = () => {
@@ -40,12 +53,14 @@ class Player extends Component {
         loading={this.state.loading}
         controls={
           <ControlLayout>
+            <ProgressBar
+              progress={this.state.progress}
+              buffer={this.state.buffer}
+            />
             <PlayPause
               onPress={this.playPause}
               paused={this.state.paused}
             />
-            <Text>Progress bar | </Text>
-            <Text>time left | </Text>
             <FullScreenButton
               onPress={this.toggleFullScreen}
               fullScreenOn={this.state.fullScreenOn}
@@ -62,6 +77,7 @@ class Player extends Component {
           paused={this.state.paused}
           fullscreen={this.state.fullScreenOn}
           onFullscreenPlayerWillDismiss={() => this.setState({ fullScreenOn: false })}
+          onProgress={this.onProgress}
         />
       </Layout>
     );

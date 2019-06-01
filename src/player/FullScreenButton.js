@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-  Text,
+  Image,
   TouchableHighlight,
+  StyleSheet,
 } from 'react-native';
 
-const PlayPause = ({ onPress, fullScreenOn }) => (
+const FullScreen = ({ onPress }) => (
   <TouchableHighlight
     onPress={onPress}
-    underlayColor='red'
     hitSlop={{
       left: 5,
       top: 5,
@@ -15,11 +15,18 @@ const PlayPause = ({ onPress, fullScreenOn }) => (
       right: 5,
     }}
   >
-    {fullScreenOn
-      ? <Text>FullScreen Off</Text>
-      : <Text>FullScreen On</Text>
-    }
+    <Image
+      source={require('../../assets/fullscreen.png')}
+      style={styles.button}
+    />
   </TouchableHighlight>
 );
 
-export default PlayPause;
+const styles = StyleSheet.create({
+  button: {
+    width: 18,
+    height: 18,
+  },
+});
+
+export default FullScreen;

@@ -9,7 +9,7 @@ const ControlLayout = ({ children }) => (
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(255, 255, 255, .3)',
+    backgroundColor: 'rgba(0, 0, 0, .5)',
     position: 'absolute',
     left: 0,
     right: 0,
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 10,
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 
