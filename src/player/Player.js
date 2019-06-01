@@ -4,11 +4,13 @@ import Video from 'react-native-video';
 import Layout from './PlayerLayout';
 import ControlLayout from './ControlLayout';
 import PlayPause from './PlayPause';
+import FullScreenButton from './FullScreenButton';
 
 class Player extends Component {
   state = {
     loading: true,
     paused: false,
+    fullScreenOn: false,
   }
 
   onBuffer = ({ isBuffering }) => {
@@ -20,7 +22,15 @@ class Player extends Component {
   }
 
   playPause = () => {
-    this.setState(prevState => ({ paused: !prevState.paused }));
+    this.setState(prevState => ({
+      paused: !prevState.paused,
+    }));
+  }
+
+  toggleFullScreen = () => {
+    this.setState(prevState => ({
+      fullScreenOn: !prevState.fullScreenOn,
+    }));
   }
 
   render() {
@@ -36,7 +46,10 @@ class Player extends Component {
             />
             <Text>Progress bar | </Text>
             <Text>time left | </Text>
-            <Text>fullscreen</Text>
+            <FullScreenButton
+              onPress={this.toggleFullScreen}
+              fullScreenOn={this.state.fullScreenOn}
+            />
           </ControlLayout>
         }
       >
@@ -47,6 +60,8 @@ class Player extends Component {
           onBuffer={this.onBuffer}
           onLoad={this.onLoad}
           paused={this.state.paused}
+          fullscreen={this.state.fullScreenOn}
+          onFullscreenPlayerWillDismiss={() => this.setState({ fullScreenOn: false })}
         />
       </Layout>
     );
