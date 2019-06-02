@@ -9,13 +9,14 @@
 import React, {Component} from 'react';
 import { Text, View } from 'react-native';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import Home from './src/screens/Home';
 import Header from './src/sections/Header';
 import SuggestionList from './src/videos/SuggestionList';
 import CategoryList from './src/videos/CategoryList';
 import API from './utils/api';
 import Player from './src/player/Player';
-import store from './store';
+import { store, persistor } from './store';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -31,14 +32,16 @@ export default class App extends Component<Props> {
   render() {
     return (
       <Provider store={store}>
-        <Home>
-          <Header>
-            <Text>Video App</Text>
-          </Header>
-          <Player />
-          <CategoryList />
-          <SuggestionList />
-        </Home>
+        <PersistGate loading={null} persistor={persistor}>
+          <Home>
+            <Header>
+              <Text>Video App</Text>
+            </Header>
+            <Player />
+            <CategoryList />
+            <SuggestionList />
+          </Home>
+        </PersistGate>
       </Provider>
     );
   }
