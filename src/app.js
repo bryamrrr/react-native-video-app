@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Home from './screens/Home';
 import Header from './sections/Header';
+import Search from './sections/Search';
 import SuggestionList from './videos/SuggestionList';
 import CategoryList from './videos/CategoryList';
 import Movie from './screens/Movie';
@@ -25,6 +26,7 @@ class AppLayout extends Component {
     return (
       <Home>
         <Header />
+        <Search />
         <CategoryList />
         <SuggestionList />
       </Home>
