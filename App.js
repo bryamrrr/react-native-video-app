@@ -10,26 +10,12 @@ import React, {Component} from 'react';
 import { Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import Home from './src/screens/Home';
-import Header from './src/sections/Header';
-import SuggestionList from './src/videos/SuggestionList';
-import CategoryList from './src/videos/CategoryList';
-import API from './utils/api';
-import Player from './src/player/Player';
 import Loading from './src/sections/Loading';
 import { store, persistor } from './store';
+import AppLayout from './src/app';
 
 type Props = {};
 export default class App extends Component<Props> {
-  async componentDidMount() {
-    const suggestionList = await API.getSuggestion(10);
-    const categoryList = await API.getMovies();
-    store.dispatch({
-      type: 'SET_DATA',
-      payload: { suggestionList, categoryList },
-    });
-  }
-
   render() {
     return (
       <Provider store={store}>
@@ -37,14 +23,7 @@ export default class App extends Component<Props> {
           loading={<Loading />}
           persistor={persistor}
         >
-          <Home>
-            <Header>
-              <Text>Video App</Text>
-            </Header>
-            <Player />
-            <CategoryList />
-            <SuggestionList />
-          </Home>
+          <AppLayout />
         </PersistGate>
       </Provider>
     );

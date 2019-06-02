@@ -6,6 +6,18 @@ const videos = (state = {}, action) => {
         ...action.payload,
       }
     }
+    case 'SET_SELECTED_MOVIE': {
+      return {
+        ...state,
+        selectedMovie: action.payload.movie,
+      };
+    }
+    case 'REMOVE_MOVIE': {
+      return {
+        ...state,
+        selectedMovie: null,
+      };
+    }
   }
   return state;
 }
