@@ -16,6 +16,7 @@ import SuggestionList from './src/videos/SuggestionList';
 import CategoryList from './src/videos/CategoryList';
 import API from './utils/api';
 import Player from './src/player/Player';
+import Loading from './src/sections/Loading';
 import { store, persistor } from './store';
 
 type Props = {};
@@ -32,7 +33,10 @@ export default class App extends Component<Props> {
   render() {
     return (
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate
+          loading={<Loading />}
+          persistor={persistor}
+        >
           <Home>
             <Header>
               <Text>Video App</Text>
