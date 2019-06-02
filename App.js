@@ -8,39 +8,38 @@
 
 import React, {Component} from 'react';
 import { Text, View } from 'react-native';
+import { Provider } from 'react-redux';
 import Home from './src/screens/Home';
 import Header from './src/sections/Header';
 import SuggestionList from './src/videos/SuggestionList';
 import CategoryList from './src/videos/CategoryList';
 import API from './utils/api';
 import Player from './src/player/Player';
+import store from './store';
 
 type Props = {};
 export default class App extends Component<Props> {
-  state = {
-    suggestionList: [],
-    categoryList: [],
-  };
-
   async componentDidMount() {
-    const movies = await API.getSuggestion(10);
-    const categories = await API.getMovies();
-    this.setState({
-      suggestionList: movies,
-      categoryList: categories,
+    const suggestionList = await API.getSuggestion(10);
+    const categoryList = await API.getMovies();
+    store.dispatch({
+      type: 'SET_DATA',
+      payload: { suggestionList, categoryList },
     });
   }
 
   render() {
     return (
-      <Home>
-        <Header>
-          <Text>Video App</Text>
-        </Header>
-        <Player />
-        <CategoryList list={this.state.categoryList} />
-        <SuggestionList list={this.state.suggestionList} />
-      </Home>
+      <Provider store={store}>
+        <Home>
+          <Header>
+            <Text>Video App</Text>
+          </Header>
+          <Player />
+          <CategoryList />
+          <SuggestionList />
+        </Home>
+      </Provider>
     );
   }
 }
